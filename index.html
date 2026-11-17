@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASA Cricket Academy | Online Batting, Bowling & Wicket Keeping Coaching</title>
+<meta name="description" content="Apna video bhejo, apni galtiyan jaano. Beginners aur pro cricketers ke liye online coaching WhatsApp aur call par.">
+
+<!-- ===== FONTS, ICONS, TAILWIND (CDN) ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* ===== COLOURS: yahan se poori website ke colours badal sakte ho ===== */
+  :root{
+    --pitch:#0F3D2E;      /* dark green (main) */
+    --pitch-2:#145040;    /* thoda light green */
+    --ball:#C62828;       /* cricket ball red (buttons/accent) */
+    --ball-dark:#A31F1F;
+    --sand:#F3F5F1;      /* light section background */
+    --ink:#10201A;        /* text colour */
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);background:#fff}
+  h1,h2,h3,.display{font-family:'Barlow Condensed',sans-serif;letter-spacing:.01em}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.5rem;border-radius:.5rem;font-weight:700;transition:.2s}
+  .btn-red{background:var(--ball);color:#fff}.btn-red:hover{background:var(--ball-dark)}
+  .btn-line{border:2px solid #fff;color:#fff}.btn-line:hover{background:#fff;color:var(--pitch)}
+  .field{width:100%;padding:.75rem 1rem;border:1.5px solid #cfd8d2;border-radius:.5rem;background:#fff;outline:none}
+  .field:focus{border-color:var(--pitch);box-shadow:0 0 0 3px rgba(15,61,46,.15)}
+  a:focus-visible,button:focus-visible{outline:3px solid #E9B949;outline-offset:2px}
+  /* Hero ki cricket ball (CSS se bani) */
+  .ball{width:min(320px,70vw);aspect-ratio:1;border-radius:50%;position:relative;
+    background:radial-gradient(circle at 32% 28%,#e24a4a,var(--ball) 55%,#7d1313);
+    box-shadow:0 30px 60px rgba(0,0,0,.45);animation:spin 18s linear infinite}
+  .ball::before,.ball::after{content:"";position:absolute;top:6%;bottom:6%;width:0;border-left:3px dashed #f4e6c8}
+  .ball::before{left:44%;transform:skewX(-6deg)}.ball::after{left:56%;transform:skewX(6deg)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.ball{animation:none}html{scroll-behavior:auto}}
+  .hidden-s{display:none}
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header class="sticky top-0 z-40 shadow" style="background:var(--pitch)">
+  <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between text-white">
+    <a href="#home" class="display text-2xl font-bold flex items-center gap-2"><i class="fa-solid fa-baseball" style="color:#E9B949"></i> ASA CRICKET ACADEMY</a>
+    <ul class="hidden md:flex items-center gap-6 font-medium">
+      <li><a href="#about" class="hover:text-amber-300">About</a></li>
+      <li><a href="#services" class="hover:text-amber-300">Services</a></li>
+      <li><a href="#how" class="hover:text-amber-300">How it works</a></li>
+      <li><a href="#record" class="hover:text-amber-300">Record video</a></li>
+      <li><a href="#plans" class="hover:text-amber-300">Plans</a></li>
+      <li><a href="#contact" class="hover:text-amber-300">Contact</a></li>
+      <li id="navProfile" class="hidden-s"><a href="#profile" class="hover:text-amber-300">My profile</a></li>
+      <li><button id="authBtn" class="btn btn-red py-2" onclick="handleAuthClick()">Log in</button></li>
+    </ul>
+    <button class="md:hidden text-2xl" aria-label="Menu" onclick="document.getElementById('mMenu').classList.toggle('hidden')"><i class="fa-solid fa-bars"></i></button>
+  </nav>
+  <!-- Mobile menu -->
+  <div id="mMenu" class="hidden md:hidden px-4 pb-4 text-white space-y-3" style="background:var(--pitch-2)" onclick="this.classList.add('hidden')">
+    <a class="block pt-3" href="#about">About</a><a class="block" href="#services">Services</a><a class="block" href="#how">How it works</a><a class="block" href="#record">Record video</a>
+    <a class="block" href="#plans">Plans</a><a class="block" href="#contact">Contact</a>
+    <a id="navProfileM" class="block hidden-s" href="#profile">My profile</a>
+    <button class="btn btn-red authBtnM" onclick="handleAuthClick()">Log in</button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section id="home" class="text-white" style="background:linear-gradient(135deg,var(--pitch),#0a2a20)">
+  <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h1 class="text-5xl md:text-7xl font-extrabold leading-none">Apni galti video mein dekho. Phir use theek karo.</h1>
+      <p class="mt-5 text-lg text-white/85 max-w-lg">Batting, bowling aur wicket keeping ki online coaching. Apna video bhejo, coach galtiyan batayega aur WhatsApp ya call par sikhayega. Beginners aur pro dono ke liye.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#demo" class="btn btn-red"><i class="fa-solid fa-calendar-check"></i> Book free demo</a>
+        <a id="waHero" href="#" target="_blank" rel="noopener" class="btn btn-line"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+      </div>
+    </div>
+    <div class="flex justify-center"><div class="ball" role="img" aria-label="Cricket ball"></div></div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="py-16" style="background:var(--sand)">
+  <div class="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h2 class="text-4xl md:text-5xl font-bold" style="color:var(--pitch)">Ghar baithe cricket coaching</h2>
+      <p class="mt-4 leading-relaxed">ASA Cricket Academy mein har player ko personal attention milta hai. Aap apni practice ka video bhejte ho, coach use dhyan se dekhta hai aur batata hai ki kya sahi hai aur kya sudharna hai. Phir WhatsApp aur call par step by step sikhaya jata hai.</p>
+      <p class="mt-3 leading-relaxed">Chahe aap pehli baar bat pakad rahe ho ya state level khel rahe ho, training aapke level ke hisaab se hoti hai.</p>
+    </div>
+    <!-- Stats: apne asli numbers yahan likho -->
+    <div class="grid grid-cols-2 gap-4 text-center">
+      <div class="bg-white rounded-xl p-6 shadow-sm"><div class="display text-5xl font-bold" style="color:var(--ball)">3</div><p class="text-sm mt-1">Skills: batting, bowling, keeping</p></div>
+      <div class="bg-white rounded-xl p-6 shadow-sm"><div class="display text-5xl font-bold" style="color:var(--ball)">1:1</div><p class="text-sm mt-1">Personal video feedback</p></div>
+      <div class="bg-white rounded-xl p-6 shadow-sm"><div class="display text-5xl font-bold" style="color:var(--ball)">All</div><p class="text-sm mt-1">Beginner se pro tak</p></div>
+      <div class="bg-white rounded-xl p-6 shadow-sm"><div class="display text-5xl font-bold" style="color:var(--ball)">Free</div><p class="text-sm mt-1">Demo trial class</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services" class="py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-bold text-center" style="color:var(--pitch)">Hum kya sikhate hain</h2>
+    <div class="mt-10 grid md:grid-cols-3 gap-6">
+      <!-- Service card: icon, title, text badal sakte ho -->
+      <article class="rounded-xl border border-gray-200 p-7">
+        <i class="fa-solid fa-baseball-bat-ball text-3xl" style="color:var(--ball)"></i>
+        <h3 class="text-3xl font-bold mt-4">Batting</h3>
+        <p class="mt-2 text-gray-700">Stance, grip, backlift, footwork aur shot selection. Video bhejo, hum bataenge kahan galti ho rahi hai.</p>
+      </article>
+      <article class="rounded-xl border border-gray-200 p-7">
+        <i class="fa-solid fa-bullseye text-3xl" style="color:var(--ball)"></i>
+        <h3 class="text-3xl font-bold mt-4">Bowling</h3>
+        <p class="mt-2 text-gray-700">Run-up, bowling action, release point, line aur length. Pace aur spin dono ke liye guidance.</p>
+      </article>
+      <article class="rounded-xl border border-gray-200 p-7">
+        <i class="fa-solid fa-mitten text-3xl" style="color:var(--ball)"></i>
+        <h3 class="text-3xl font-bold mt-4">Wicket keeping</h3>
+        <p class="mt-2 text-gray-700">Keeping stance, gloves position, ball pakadna aur stumping. Apna keeping video bhejo aur sudhar karo.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS (real sequence, isliye numbers) ===== -->
+<section id="how" class="py-16 text-white" style="background:var(--pitch)">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-bold text-center">Kaise kaam karta hai</h2>
+    <ol class="mt-10 grid md:grid-cols-4 gap-6">
+      <li class="rounded-xl p-6" style="background:var(--pitch-2)"><span class="display text-4xl text-amber-300">1</span><h3 class="text-xl font-bold mt-2">Demo book karo</h3><p class="text-sm text-white/80 mt-1">Neeche form bharo, pehla demo free hai.</p></li>
+      <li class="rounded-xl p-6" style="background:var(--pitch-2)"><span class="display text-4xl text-amber-300">2</span><h3 class="text-xl font-bold mt-2">Video bhejo</h3><p class="text-sm text-white/80 mt-1">Batting stance, bowling action ya keeping ka video.</p></li>
+      <li class="rounded-xl p-6" style="background:var(--pitch-2)"><span class="display text-4xl text-amber-300">3</span><h3 class="text-xl font-bold mt-2">Galtiyan jaano</h3><p class="text-sm text-white/80 mt-1">Coach video dekh kar clear feedback deta hai.</p></li>
+      <li class="rounded-xl p-6" style="background:var(--pitch-2)"><span class="display text-4xl text-amber-300">4</span><h3 class="text-xl font-bold mt-2">Seekho aur sudharo</h3><p class="text-sm text-white/80 mt-1">WhatsApp aur call par drills ke saath training.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== PLANS / PRODUCTS (prices CONFIG mein badlo) ===== -->
+<section id="plans" class="py-16" style="background:var(--sand)">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-bold text-center" style="color:var(--pitch)">Training plans</h2>
+    <div id="planGrid" class="mt-10 grid md:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<!-- ===== PROFILE (sirf login ke baad dikhega) ===== -->
+<section id="profile" class="py-16 hidden-s">
+  <div class="max-w-xl mx-auto px-4">
+    <h2 class="text-4xl font-bold" style="color:var(--pitch)">My profile</h2>
+    <div class="mt-6 rounded-xl border border-gray-200 p-6 space-y-4">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-bold" style="background:var(--pitch)" id="pAvatar">A</div>
+        <div><p class="font-bold text-lg" id="pName"></p><p class="text-sm text-gray-600" id="pEmail"></p></div>
+      </div>
+      <label class="block text-sm font-medium">Aap kya seekhna chahte ho
+        <select id="pRole" class="field mt-1" onchange="saveProfile()">
+          <option>Batting</option><option>Bowling</option><option>Wicket keeping</option><option>All-rounder</option>
+        </select></label>
+      <label class="block text-sm font-medium">Level
+        <select id="pLevel" class="field mt-1" onchange="saveProfile()">
+          <option>Beginner</option><option>Intermediate</option><option>Pro</option>
+        </select></label>
+      <p id="pSaved" class="text-sm text-green-700 hidden-s">Profile save ho gaya.</p>
+      <button class="btn btn-red" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Log out</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDEO RECORD (camera se video banao) ===== -->
+<section id="record" class="py-16" style="background:var(--sand)">
+  <div class="max-w-3xl mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-bold text-center" style="color:var(--pitch)">Apna video record karo</h2>
+    <p class="text-center text-gray-700 mt-2">Camera allow karo, batting stance, bowling action ya keeping ka video banao aur coach ko bhejo.</p>
+    <div class="mt-8 bg-white rounded-xl border border-gray-200 p-4 md:p-6 space-y-4">
+      <select id="vType" class="field" aria-label="Video type">
+        <option>Batting</option><option>Bowling</option><option>Wicket keeping</option>
+      </select>
+      <div class="relative">
+        <!-- Live camera -->
+        <video id="camView" class="w-full rounded-xl bg-black aspect-video object-cover" playsinline muted></video>
+        <!-- Recorded video playback -->
+        <video id="camPlay" class="w-full rounded-xl bg-black aspect-video hidden-s" playsinline controls></video>
+        <span id="recTimer" class="hidden-s absolute top-3 left-3 text-white text-sm font-bold px-2 py-1 rounded" style="background:var(--ball)"></span>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button id="bCam" class="btn btn-red" onclick="startCam()"><i class="fa-solid fa-camera"></i> Camera on karo</button>
+        <button id="bRec" class="btn btn-red hidden-s" onclick="startRec()"><i class="fa-solid fa-circle"></i> Record</button>
+        <button id="bStop" class="btn btn-red hidden-s" onclick="stopRec()"><i class="fa-solid fa-stop"></i> Stop</button>
+        <button id="bFlip" class="btn hidden-s border-2" style="border-color:var(--pitch);color:var(--pitch)" onclick="flipCam()"><i class="fa-solid fa-camera-rotate"></i> Front/Back</button>
+        <label class="btn border-2 cursor-pointer" style="border-color:var(--pitch);color:var(--pitch)">
+          <i class="fa-solid fa-folder-open"></i> Gallery se chuno
+          <input type="file" accept="video/*" class="hidden-s" onchange="pickVideo(this)">
+        </label>
+      </div>
+      <div id="vActions" class="hidden-s flex flex-wrap gap-3 pt-2 border-t">
+        <button class="btn" style="background:#25D366;color:#fff" onclick="shareVideo()"><i class="fa-brands fa-whatsapp"></i> Coach ko bhejo</button>
+        <button class="btn border-2" style="border-color:var(--pitch);color:var(--pitch)" onclick="downloadVideo()"><i class="fa-solid fa-download"></i> Download</button>
+        <button class="btn border-2 border-gray-300 text-gray-700" onclick="resetVideo()"><i class="fa-solid fa-rotate-left"></i> Dobara record karo</button>
+      </div>
+      <p id="recMsg" class="text-sm font-medium" role="status"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FREE DEMO BOOKING ===== -->
+<section id="demo" class="py-16 text-white" style="background:linear-gradient(135deg,var(--pitch),#0a2a20)">
+  <div class="max-w-2xl mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-bold text-center">Free demo class book karo</h2>
+    <p class="text-center text-white/80 mt-2">Form bharo, hum aapko WhatsApp ya call par confirm karenge.</p>
+    <form class="web3form mt-8 grid gap-4 text-gray-900" data-subject="Free Demo Booking - ASA Cricket Academy">
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none"> <!-- spam protection -->
+      <div class="grid sm:grid-cols-2 gap-4">
+        <input class="field" name="name" placeholder="Aapka naam" required>
+        <input class="field" name="phone" type="tel" placeholder="WhatsApp number" required>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <select class="field" name="skill" required><option value="">Kya seekhna hai?</option><option>Batting</option><option>Bowling</option><option>Wicket keeping</option><option>All-rounder</option></select>
+        <select class="field" name="level"><option>Beginner</option><option>Intermediate</option><option>Pro</option></select>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <input class="field" name="date" type="date" required aria-label="Demo date">
+        <select class="field" name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select>
+      </div>
+      <input class="field" name="video_link" placeholder="Video link (Google Drive / YouTube), optional">
+      <button class="btn btn-red justify-center" type="submit"><i class="fa-solid fa-paper-plane"></i> Book my demo</button>
+      <p class="form-msg text-center text-sm font-medium"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="py-16">
+  <div class="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-10">
+    <div>
+      <h2 class="text-4xl md:text-5xl font-bold" style="color:var(--pitch)">Humse baat karo</h2>
+      <p class="mt-3 text-gray-700">Koi sawal hai? Message bhejo ya seedha WhatsApp aur call karo.</p>
+      <ul class="mt-6 space-y-3">
+        <li><i class="fa-brands fa-whatsapp w-6" style="color:#25D366"></i> <a id="waLink" href="#" target="_blank" rel="noopener" class="font-medium hover:underline">WhatsApp par message karo</a></li>
+        <li><i class="fa-solid fa-phone w-6" style="color:var(--ball)"></i> <a id="callLink" href="#" class="font-medium hover:underline"></a></li>
+        <li><i class="fa-solid fa-envelope w-6" style="color:var(--ball)"></i> <span id="mailTxt"></span></li>
+      </ul>
+    </div>
+    <form class="web3form grid gap-4" data-subject="New Message - ASA Cricket Academy Website">
+      <input type="checkbox" name="botcheck" style="display:none">
+      <input class="field" name="name" placeholder="Aapka naam" required>
+      <input class="field" name="email" type="email" placeholder="Email" required>
+      <textarea class="field" name="message" rows="4" placeholder="Aapka message" required></textarea>
+      <button class="btn btn-red justify-center" type="submit"><i class="fa-solid fa-paper-plane"></i> Send message</button>
+      <p class="form-msg text-sm font-medium"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="text-white/80 py-8" style="background:#0a2a20">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+    <p>&copy; <span id="yr"></span> ASA Cricket Academy. All rights reserved.</p>
+    <div class="flex gap-5 text-xl">
+      <!-- Apne social links yahan daalo -->
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== FLOATING WHATSAPP BUTTON ===== -->
+<a id="waFloat" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"
+   class="fixed left-4 bottom-4 z-40 w-14 h-14 rounded-full flex items-center justify-center text-white text-3xl shadow-lg" style="background:#25D366">
+  <i class="fa-brands fa-whatsapp"></i></a>
+
+<!-- ===== AI CHAT WIDGET ===== -->
+<button id="chatOpen" class="fixed right-4 bottom-4 z-40 btn btn-red shadow-lg" onclick="toggleChat()"><i class="fa-solid fa-robot"></i> Ask AI</button>
+<div id="chatBox" class="hidden fixed right-4 bottom-4 z-50 w-[calc(100vw-2rem)] max-w-sm bg-white rounded-xl shadow-2xl border overflow-hidden">
+  <div class="flex justify-between items-center px-4 py-3 text-white" style="background:var(--pitch)">
+    <span class="font-bold"><i class="fa-solid fa-robot"></i> ASA Assistant</span>
+    <button onclick="toggleChat()" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div id="chatLog" class="h-64 overflow-y-auto p-3 space-y-2 text-sm"></div>
+  <form class="flex gap-2 p-3 border-t" onsubmit="sendChat(event)">
+    <input id="chatIn" class="field" placeholder="Apna sawal likho..." autocomplete="off">
+    <button class="btn btn-red px-4" aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
+  </form>
+</div>
+
+<!-- ===== LOGIN / SIGNUP MODAL ===== -->
+<div id="authModal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div class="bg-white rounded-xl w-full max-w-sm p-6 relative">
+    <button class="absolute right-4 top-3 text-xl" onclick="closeAuth()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <h3 id="authTitle" class="text-3xl font-bold" style="color:var(--pitch)">Log in</h3>
+    <form class="mt-4 grid gap-3" onsubmit="submitAuth(event)">
+      <input id="aName" class="field hidden-s" placeholder="Aapka naam">
+      <input id="aEmail" class="field" type="email" placeholder="Email" required>
+      <input id="aPass" class="field" type="password" placeholder="Password (min 6)" minlength="6" required>
+      <p id="aErr" class="text-sm text-red-700"></p>
+      <button class="btn btn-red justify-center" type="submit" id="aSubmit">Log in</button>
+    </form>
+    <p class="text-sm mt-3 text-center"><span id="aSwitchTxt">Naye ho?</span> <button class="underline font-medium" onclick="toggleAuthMode()" id="aSwitch">Sign up karo</button></p>
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   CONFIG: yahan apni details daalo (sirf yahi badalna hai)
+   ===================================================== */
+const CONFIG = {
+  WEB3FORMS_KEY: "XXXX-XXXX-XXXX", // web3forms.com par apna email daal kar key lo
+  WHATSAPP: +916207226072",                   // country code ke saath, + ya space ke bina
+  PHONE: "+91 6207226072
+  EMAIL: singhputul166@gmail.com
+  // Plans: naam, price, features badal sakte ho
+  PLANS: [
+    { name: "Starter", price: "₹999 / month", feat: ["2 video reviews", "WhatsApp feedback", "Basic drills"] },
+    { name: "Pro", price: "₹1,999 / month", feat: ["6 video reviews", "Weekly call session", "Personal drill plan"], hot: true },
+    { name: "Elite", price: "₹3,499 / month", feat: ["Unlimited video reviews", "Twice weekly calls", "Match performance analysis"] } ]
+iska rupees 6207226072 pe online jayega by phonepay paytm navi upi and gpay per onilne };
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const waUrl = (t = "Hi ASA Cricket Academy, mujhe training ke baare mein jaanna hai.") =>
+  `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(t)}`;
+["waHero", "waLink", "waFloat"].forEach(i => $(i).href = waUrl());
+$("callLink").href = "tel:" + CONFIG.PHONE.replace(/\s/g, ""); $("callLink").textContent = CONFIG.PHONE;
+$("mailTxt").textContent = CONFIG.EMAIL;
+$("yr").textContent = new Date().getFullYear();
+
+/* ---------- Camera video record ----------
+   Browser camera + mic permission maangta hai. Ye sirf HTTPS (live website) ya localhost par chalta hai.
+   MAX_SECONDS: ek video ki max length badal sakte ho. */
+const MAX_SECONDS = 100
+let camStream, recorder, chunks = [], videoBlob, facing = "environment", tick, secs = 0;
+const show = (id, on) => $(id).classList.toggle("hidden-s", !on);
+const setMsg = t => $("recMsg").textContent = t;
+
+async function startCam() {
+  if (!navigator.mediaDevices || !window.MediaRecorder) return setMsg("Aapka browser camera recording support nahi karta. 'Gallery se chuno' use karo.");
+  try {
+    stopTracks();
+    camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing }, audio: true });
+    $("camView").srcObject = camStream; await $("camView").play();
+    show("camView", true); show("camPlay", false);
+    show("bCam", false); show("bRec", true); show("bFlip", true); setMsg("Camera chalu hai. Record dabao.");
+  } catch (e) { setMsg("Camera allow nahi hua. Browser mein camera aur mic ki permission on karo."); }
+}
+function stopTracks() { camStream && camStream.getTracks().forEach(t => t.stop()); }
+function flipCam() { if (recorder && recorder.state === "recording") return; facing = facing === "user" ? "environment" : "user"; startCam(); }
+
+function startRec() {
+  chunks = [];
+  const mime = ["video/webm;codecs=vp8,opus", "video/webm", "video/mp4"].find(t => MediaRecorder.isTypeSupported(t));
+  recorder = new MediaRecorder(camStream, mime ? { mimeType: mime } : undefined);
+  recorder.ondataavailable = e => e.data.size && chunks.push(e.data);
+  recorder.onstop = () => { videoBlob = new Blob(chunks, { type: recorder.mimeType || "video/webm" }); showResult(); };
+  recorder.start();
+  secs = 0; show("recTimer", true); $("recTimer").textContent = "REC 0s";
+  tick = setInterval(() => { secs++; $("recTimer").textContent = "REC " + secs + "s"; if (secs >= MAX_SECONDS) stopRec(); }, 1000);
+  show("bRec", false); show("bStop", true); show("bFlip", false); setMsg("Recording chalu hai...");
+}
+function stopRec() { clearInterval(tick); show("recTimer", false); show("bStop", false); recorder && recorder.state === "recording" && recorder.stop(); }
+
+function showResult() {
+  stopTracks(); $("camPlay").src = URL.createObjectURL(videoBlob);
+  show("camView", false); show("camPlay", true); show("bRec", false); show("bFlip", false); show("bCam", false); show("vActions", true);
+  setMsg("Video ready hai. Dekh lo, phir coach ko bhejo.");
+}
+function pickVideo(inp) { if (inp.files[0]) { videoBlob = inp.files[0]; showResult(); } }
+function resetVideo() { videoBlob = null; show("vActions", false); show("camPlay", false); show("bCam", true); show("camView", false); setMsg(""); }
+
+const vName = () => `ASA-${$("vType").value.replace(/\s/g, "-")}-${Date.now()}.${videoBlob.type.includes("mp4") ? "mp4" : "webm"}`;
+function downloadVideo() {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(videoBlob); a.download = vName(); a.click();
+}
+/* Mobile par share menu khulta hai (WhatsApp choose karo). Desktop par video download hota hai
+   aur WhatsApp chat khulti hai, wahan video attach karna hoga. */
+async function shareVideo() {
+  const file = new File([videoBlob], vName(), { type: videoBlob.type });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], text: "Coach, mera " + $("vType").value + " video review karo." }); } catch (e) {}
+  } else {
+    downloadVideo(); window.open(waUrl("Coach, main apna " + $("vType").value + " video bhej raha hoon."), "_blank");
+    setMsg("Video download ho gaya. WhatsApp chat mein use attach karke bhej do.");
+  }
+}
+
+/* ---------- Plans render ---------- */
+$("planGrid").innerHTML = CONFIG.PLANS.map(p => `
+  <article class="rounded-xl bg-white p-7 ${p.hot ? 'border-2' : 'border border-gray-200'}" style="${p.hot ? 'border-color:var(--ball)' : ''}">
+    ${p.hot ? '<span class="text-xs font-bold text-white px-2 py-1 rounded" style="background:var(--ball)">Most popular</span>' : ''}
+    <h3 class="text-3xl font-bold mt-2">${p.name}</h3>
+    <p class="display text-3xl font-bold" style="color:var(--ball)">${p.price}</p>
+    <ul class="mt-4 space-y-2 text-sm">${p.feat.map(f => `<li><i class="fa-solid fa-check mr-2" style="color:var(--pitch)"></i>${f}</li>`).join("")}</ul>
+    <a href="${waUrl('Hi, mujhe ' + p.name + ' plan lena hai.')}" target="_blank" rel="noopener" class="btn btn-red w-full justify-center mt-6">Join ${p.name}</a>
+  </article>`).join("");
+
+/* ---------- Forms -> Web3Forms (email par data aata hai) ---------- */
+document.querySelectorAll(".web3form").forEach(form => {
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const msg = form.querySelector(".form-msg"), btn = form.querySelector("button[type=submit]");
+    const data = Object.fromEntries(new FormData(form));
+    data.access_key = CONFIG.WEB3FORMS_KEY; data.subject = form.dataset.subject;
+    btn.disabled = true; msg.textContent = "Bhej rahe hain..."; msg.style.color = "inherit";
+    try {
+      const r = await fetch("https://api.web3forms.com/submit", {
+        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) });
+      const j = await r.json();
+      if (j.success) { msg.textContent = "Shukriya! Hum jaldi aapse sampark karenge."; msg.style.color = "#86efac"; form.reset(); }
+      else throw new Error(j.message);
+    } catch (err) { msg.textContent = "Message nahi gaya. WhatsApp par try karo."; msg.style.color = "#fca5a5"; }
+    btn.disabled = false;
+  });
+});
+
+/* ---------- Login / Logout / Profile ----------
+   NOTE: Ye demo system browser ki localStorage mein chalta hai (sirf is device par).
+   Asli secure login ke liye Firebase Auth ya Supabase jodna padega. */
+const getUsers = () => JSON.parse(localStorage.getItem("asa_users") || "{}");
+let signupMode = false;
+function openAuth() { $("authModal").classList.remove("hidden"); }
+function closeAuth() { $("authModal").classList.add("hidden"); }
+function toggleAuthMode() {
+  signupMode = !signupMode;
+  $("aName").classList.toggle("hidden-s", !signupMode);
+  $("authTitle").textContent = $("aSubmit").textContent = signupMode ? "Sign up" : "Log in";
+  $("aSwitchTxt").textContent = signupMode ? "Pehle se account hai?" : "Naye ho?";
+  $("aSwitch").textContent = signupMode ? "Log in karo" : "Sign up karo"; $("aErr").textContent = "";
+}
+function submitAuth(e) {
+  e.preventDefault();
+  const email = $("aEmail").value.trim().toLowerCase(), pass = $("aPass").value, users = getUsers();
+  if (signupMode) {
+    if (users[email]) return $("aErr").textContent = "Ye email pehle se registered hai.";
+    users[email] = { name: $("aName").value.trim() || "Player", pass, role: "Batting", level: "Beginner" };
+    localStorage.setItem("asa_users", JSON.stringify(users));
+  } else if (!users[email] || users[email].pass !== pass) return $("aErr").textContent = "Email ya password galat hai.";
+  localStorage.setItem("asa_session", email); closeAuth(); e.target.reset(); refreshAuth();
+  location.hash = "#profile";
+}
+function logout() { localStorage.removeItem("asa_session"); refreshAuth(); location.hash = "#home"; }
+function handleAuthClick() { localStorage.getItem("asa_session") ? logout() : openAuth(); }
+function saveProfile() {
+  const email = localStorage.getItem("asa_session"), users = getUsers();
+  users[email].role = $("pRole").value; users[email].level = $("pLevel").value;
+  localStorage.setItem("asa_users", JSON.stringify(users)); $("pSaved").classList.remove("hidden-s");
+}
+function refreshAuth() {
+  const email = localStorage.getItem("asa_session"), u = email && getUsers()[email], on = !!u;
+  ["navProfile", "navProfileM", "profile"].forEach(i => $(i).classList.toggle("hidden-s", !on));
+  $("authBtn").textContent = document.querySelector(".authBtnM").textContent = on ? "Log out" : "Log in";
+  if (on) { $("pName").textContent = u.name; $("pEmail").textContent = email; $("pAvatar").textContent = u.name[0].toUpperCase();
+    $("pRole").value = u.role; $("pLevel").value = u.level; }
+}
+refreshAuth();
+
+/* ---------- AI Chat (rule-based) ----------
+   Ye keywords se jawab deta hai. Asli AI (ChatGPT/Claude) chahiye to sendChat mein
+   apne server ka API call lagana hoga (API key kabhi seedha HTML mein mat daalna). */
+const BOT = [
+  [/demo|trial|free/, "Pehla demo bilkul free hai. Page par 'Book free demo' form bharo, hum WhatsApp par confirm karenge."],
+  [/price|fee|plan|cost|kitna/, "Humare 3 plans hain: Starter, Pro aur Elite. Plans section dekho ya WhatsApp par puchho."],
+  [/bat|batting|stance/, "Batting ke liye apna stance, grip aur shot ka video bhejo. Coach galtiyan batayega aur drills dega."],
+  [/bowl|action|spin|pace/, "Bowling action ka video bhejo (side aur front se). Run-up, release aur follow-through check karenge."],
+  [/keep|wicket|gloves/, "Keeping stance aur catching ka video bhejo. Gloves position aur footwork par kaam karenge."],
+  [/video|send|bhej/, "Video Google Drive ya YouTube link ke roop mein demo form mein daalo, ya seedha WhatsApp par bhejo."],
+  [/beginner|pro|level/, "Beginners se lekar pro players tak sabke liye training hai, level ke hisaab se."],
+  [/contact|call|whatsapp|number/, "Contact section mein WhatsApp aur call ki details hain. Niche WhatsApp button bhi hai."]
+];
+function toggleChat() {
+  $("chatBox").classList.toggle("hidden"); $("chatOpen").classList.toggle("hidden");
+  if (!$("chatLog").children.length) addMsg("Namaste! Main ASA Assistant hoon. Demo, plans ya training ke baare mein puchho.", false);
+}
+function addMsg(t, user) {
+  const d = document.createElement("div"); d.textContent = t;
+  d.className = "max-w-[85%] px-3 py-2 rounded-lg " + (user ? "ml-auto text-white" : "bg-gray-100");
+  if (user) d.style.background = "var(--pitch)";
+  $("chatLog").appendChild(d); $("chatLog").scrollTop = 1e6;
+}
+function sendChat(e) {
+  e.preventDefault(); const q = $("chatIn").value.trim(); if (!q) return;
+  addMsg(q, true); $("chatIn").value = "";
+  const hit = BOT.find(([re]) => re.test(q.toLowerCase()));
+  setTimeout(() => addMsg(hit ? hit[1] : "Iska sahi jawab coach hi de payega. WhatsApp par seedha puchho.", false), 400);
+}
+</script>
+</body>
+</html>
